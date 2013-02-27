@@ -27,10 +27,12 @@
 (defun nxml-hide-end-tags ()
   (interactive)
   (update-invisible-face)
-  (put 'end-tag 'nxml-fontify-rule '([nil 1 invisible-face] [1 2 nxml-element-local-name] [2 nil invisible-face])))
+  (put 'end-tag 'nxml-fontify-rule '([nil 1 invisible-face] [1 2 nxml-element-local-name] [2 nil invisible-face]))
+  (font-lock-fontify-buffer))
 
 (defun nxml-show-end-tags ()
   (interactive)
-  (put 'end-tag 'nxml-fontify-rule '([nil 1 nxml-tag-delimiter] [1 2 nxml-tag-slash] [-1 nil nxml-tag-delimiter] (element-qname . 2))))
+  (put 'end-tag 'nxml-fontify-rule '([nil 1 nxml-tag-delimiter] [1 2 nxml-tag-slash] [-1 nil nxml-tag-delimiter] (element-qname . 2)))
+  (font-lock-fontify-buffer))
 
 (provide 'nxml-hide-end-tags)
