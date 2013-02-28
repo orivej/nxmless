@@ -42,7 +42,7 @@ its line.  Otherwise return nil."
   (save-excursion
     (back-to-indentation)
     (nxml-token-after)
-    (unless (eq xmltok-type 'start-tag)
+    (unless (memq xmltok-type '(start-tag empty-element))
       (nxml-compute-indent-from-matching-start-tag))))
 
 (defun my-nxml-compute-indent-from-previous-line ()
