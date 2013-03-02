@@ -11,25 +11,25 @@
 
 ;;; https://sinewalker.wordpress.com/2008/06/26/pretty-printing-xml-with-emacs-nxml-mode/
 ;;; This function is independent of the rest of this file
-(defun nxml-normal-tidy (begin end)
+(defun nxml-normal-tidy ()
   "Pretty format XML markup in region. Insert linebreaks to
 separate tags that have nothing but whitespace between them."
-  (interactive "r")
+  (interactive)
   (save-excursion
-    (goto-char begin)
+    (goto-char (point-min))
     (while (re-search-forward ">[ \\t]*<" nil t)
       (backward-char) (insert "\n"))
-    (indent-region begin (point-max))))
+    (indent-region (point-min) (point-max))))
 
 ;;; For the indent-region here to work, nxml-compute-indent must be updated as shown below
-(defun nxml-sexp-tidy (begin end)
+(defun nxml-sexp-tidy ()
   "Move end tags onto lines with their content (if present) or start tags (otherwise)."
-  (interactive "r")
+  (interactive)
   (save-excursion
-    (goto-char begin)
+    (goto-char (point-min))
     (while (re-search-forward ">\\s-+</" nil t)
       (replace-match "></" nil nil))
-    (indent-region begin (point-max))))
+    (indent-region (point-min) (point-max))))
 
 ;;; Redefine nxml-compute-indent to support Lisp style of end tag placement
 
