@@ -56,7 +56,7 @@ before current, or using indentation of a previous line otherwise."
                           (- (point) nxml-end-tag-indent-scan-distance))))
       (cond
        (previous-open
-        (goto-char previous-open)
+        (goto-char xmltok-start)
         (current-indentation))
        (t
         (nxml-compute-indent-from-previous-line))))))
