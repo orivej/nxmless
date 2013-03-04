@@ -11,7 +11,7 @@
 
 ;; Put
 ;;
-;;      (add-hook 'nxml-mode-hook 'nxml-hide-end-tags)
+;;      (add-hook 'nxml-mode-hook 'nxml-hide-tags)
 ;;
 ;; in the Emacs init file and evaluate it to activate.
 
@@ -25,33 +25,26 @@
 (update-invisible-face)
 
 (defvar nxml-end-tags-slash-rule '([nil 1 invisible-face] [1 2 nxml-element-local-name] [2 nil invisible-face]))
-(defvar nxml-end-tags-no-rule '([nil nil invisible-face]))
+(defvar nxml-end-tags-clean-rule '([nil nil invisible-face]))
 (defvar nxml-end-tags-default-rule '([nil 1 nxml-tag-delimiter] [1 2 nxml-tag-slash] [-1 nil nxml-tag-delimiter] (element-qname . 2)))
-(defvar nxml-start-tags-name-rule '([nil 1 invisible-face] [-1 nil invisible-face] (element-qname . 1) attributes))
+(defvar nxml-start-tags-clean-rule '([nil 1 invisible-face] [-1 nil invisible-face] (element-qname . 1) attributes))
 (defvar nxml-start-tags-default-rule '([nil 1 nxml-tag-delimiter] [-1 nil nxml-tag-delimiter] (element-qname . 1) attributes))
+(defvar nxml-empty-elements-clean-rule '([nil 1 invisible-face] [-2 nil invisible-face] (element-qname . 1) attributes))
+(defvar nxml-empty-elements-default-rule '([nil 1 nxml-tag-delimiter] [-2 -1 nxml-tag-slash] [-1 nil nxml-tag-delimiter] (element-qname . 1) attributes))
 
-(defun nxml-hide-end-tags (&optional arg)
-  "Without argument, show slash in end tags.  With argument, hide end tags altogether."
-  (interactive "p")
-  (update-invisible-face)
-  (put 'end-tag 'nxml-fontify-rule
-       (if (zerop arg) nxml-end-tags-slash-rule nxml-end-tags-no-rule))
-  (font-lock-fontify-buffer))
-
-(defun nxml-show-end-tags ()
-  (interactive)
-  (put 'end-tag 'nxml-fontify-rule nxml-end-tags-default-rule)
-  (font-lock-fontify-buffer))
-
-(defun nxml-hide-start-tags ()
+(defun nxml-hide-tags ()
   (interactive)
   (update-invisible-face)
-  (put 'start-tag 'nxml-fontify-rule nxml-start-tags-name-rule)
+  (put 'start-tag 'nxml-fontify-rule nxml-start-tags-clean-rule)
+  (put 'end-tag 'nxml-fontify-rule nxml-end-tags-clean-rule)
+  (put 'empty-element 'nxml-fontify-rule nxml-empty-elements-clean-rule)
   (font-lock-fontify-buffer))
 
-(defun nxml-show-start-tags ()
+(defun nxml-show-tags ()
   (interactive)
   (put 'start-tag 'nxml-fontify-rule nxml-start-tags-default-rule)
+  (put 'end-tag 'nxml-fontify-rule nxml-end-tags-default-rule)
+  (put 'empty-element 'nxml-fontify-rule nxml-empty-elements-default-rule)
   (font-lock-fontify-buffer))
 
-(provide 'nxml-hide-end-tags)
+(provide 'nxml-hide-tags)
