@@ -2,4 +2,4 @@
        :description "nXML extensions to make viewing and editing XML less disgusting. "
        :type github
        :pkgname "orivej/nxmless"
-       :features nxml-hide-tags)
+       :features nxmless-hide-tags)
