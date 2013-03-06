@@ -1,5 +1,0 @@
-(:name nxml-hide-end-tags
-       :description "Make all characters but slash invisible in XML end tags with NXML mode."
-       :type github
-       :pkgname "orivej/nxml-hide-end-tags.el"
-       :features nxml-hide-tags)
